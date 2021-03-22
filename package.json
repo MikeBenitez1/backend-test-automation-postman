@@ -1,0 +1,14 @@
+{
+  "name": "backend-test-automation-postman",
+  "version": "1.0.0",
+  "description": "backend test automation with postman",
+  "main": "index.js",
+  "scripts": {
+    "test": "npx newman run './TODOIST_API/collections/Todoist_tasks_collection.postman_collection.json' -k -e './TODOIST_API/envVariables/QA.postman_environment.json' -r htmlextra --reporter-htmlextra-export './TODOIST_API/reports/report.html'"
+  },
+  "author": "Mike Benitez",
+  "license": "ISC",
+  "dependencies": {
+    "newman-reporter-htmlextra": "^1.20.1"
+  }
+}
