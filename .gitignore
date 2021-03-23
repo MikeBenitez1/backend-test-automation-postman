@@ -1,3 +1,8 @@
-# report files and folders
+# Report files and folders
 /TODOIST_API/reports
 /node_modules
+
+#Since storing API Keys in a repository is a bad practice, the below steps can be followed to execute the postman requests in a CI/CD pipeline:
+#1. First we need to get an Postman API Key to get the collection and env var URLs via Postman API, inside Postman there is an option to get them.
+#2. Then we will need to fetch & Get a `uid` of the collection and environment to construct the entire URLs.
+#3. Last to run Postman test in a CI/CD we can add a job which call Newman run commands, this job can be described in a .yml file with the URLS, newman commands, docker instructions, etc.
