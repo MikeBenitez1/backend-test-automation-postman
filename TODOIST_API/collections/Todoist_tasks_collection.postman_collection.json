@@ -6,7 +6,7 @@
 	},
 	"item": [
 		{
-			"name": "Create a new task",
+			"name": "Positive Tests",
 			"item": [
 				{
 					"name": "Create a new task",
@@ -90,67 +90,6 @@
 					"response": []
 				},
 				{
-					"name": "Create a new task - Empty content",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"",
-									"",
-									"pm.test(\"Status code is 4xx\", function (){",
-									"    pm.response.to.be.badRequest;",
-									"});",
-									"",
-									"pm.test(\"Response time is less than 900ms\", function () {",
-									"    pm.expect(pm.response.responseTime).to.be.below(900);",
-									"});",
-									"",
-									"",
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json",
-								"type": "text"
-							},
-							{
-								"key": "X-Requested-Id",
-								"value": "$(uuidgen)",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"content\": \"\", \n    \"due_string\": \"tomorrow at 12:00\", \n    \"due_lang\": \"en\", \n    \"priority\": 4\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{baseURLTasks}}",
-							"host": [
-								"{{baseURLTasks}}"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "Get active tasks",
-			"item": [
-				{
 					"name": "Get active tasks",
 					"event": [
 						{
@@ -220,12 +159,7 @@
 						}
 					},
 					"response": []
-				}
-			]
-		},
-		{
-			"name": "Get an active task",
-			"item": [
+				},
 				{
 					"name": "Get an active task",
 					"event": [
@@ -305,12 +239,7 @@
 						}
 					},
 					"response": []
-				}
-			]
-		},
-		{
-			"name": "Update a task",
-			"item": [
+				},
 				{
 					"name": "Update a task",
 					"event": [
@@ -325,14 +254,6 @@
 									"pm.test(\"Response time is less than 900ms\", function () {",
 									"    pm.expect(pm.response.responseTime).to.be.below(900);",
 									"});",
-									"",
-									"",
-									"",
-									"//pm.test(\"Task name is correct\", function () {",
-									"//    pm.expect(jsonData.name).to.eql(name);",
-									"//});",
-									"",
-									"",
 									"",
 									""
 								],
@@ -374,12 +295,7 @@
 						}
 					},
 					"response": []
-				}
-			]
-		},
-		{
-			"name": "Close a task",
-			"item": [
+				},
 				{
 					"name": "Close a task",
 					"event": [
@@ -394,13 +310,6 @@
 									"pm.test(\"Response time is less than 900ms\", function () {",
 									"    pm.expect(pm.response.responseTime).to.be.below(900);",
 									"});",
-									"",
-									"",
-									"",
-									"//pm.test(\"Task name is correct\", function () {",
-									"//    pm.expect(jsonData.name).to.eql(name);",
-									"//});",
-									"",
 									"",
 									"",
 									""
@@ -444,12 +353,7 @@
 						}
 					},
 					"response": []
-				}
-			]
-		},
-		{
-			"name": "Reopen a task",
-			"item": [
+				},
 				{
 					"name": "Reopen a task",
 					"event": [
@@ -464,14 +368,6 @@
 									"pm.test(\"Response time is less than 900ms\", function () {",
 									"    pm.expect(pm.response.responseTime).to.be.below(900);",
 									"});",
-									"",
-									"",
-									"",
-									"//pm.test(\"Task name is correct\", function () {",
-									"//    pm.expect(jsonData.name).to.eql(name);",
-									"//});",
-									"",
-									"",
 									"",
 									""
 								],
@@ -514,12 +410,7 @@
 						}
 					},
 					"response": []
-				}
-			]
-		},
-		{
-			"name": "Delete a task",
-			"item": [
+				},
 				{
 					"name": "Delete a task",
 					"event": [
@@ -534,14 +425,6 @@
 									"pm.test(\"Response time is less than 900ms\", function () {",
 									"    pm.expect(pm.response.responseTime).to.be.below(900);",
 									"});",
-									"",
-									"",
-									"",
-									"//pm.test(\"Task name is correct\", function () {",
-									"//    pm.expect(jsonData.name).to.eql(name);",
-									"//});",
-									"",
-									"",
 									"",
 									""
 								],
@@ -579,6 +462,391 @@
 							],
 							"path": [
 								"{{taskId}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Negative Tests",
+			"item": [
+				{
+					"name": "Create a new task - Empty content",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 4xx\", function (){",
+									"    pm.response.to.be.badRequest;",
+									"});",
+									"",
+									"pm.test(\"Empty content response\", function () {",
+									"    pm.response.to.have.body(\"Empty content\\n\");",
+									"});",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "X-Requested-Id",
+								"value": "$(uuidgen)",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"content\": \"\", \n    \"due_string\": \"tomorrow at 12:00\", \n    \"due_lang\": \"en\", \n    \"priority\": 4\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURLTasks}}",
+							"host": [
+								"{{baseURLTasks}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get an active task - Not found",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 4xx\", function (){",
+									"    pm.response.to.be.notFound;",
+									"});",
+									"",
+									"pm.test(\"Not found response\", function () {",
+									"    pm.response.to.have.body(\"Not Found\\n\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURLTasks}}/1",
+							"host": [
+								"{{baseURLTasks}}"
+							],
+							"path": [
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update a task - Empty content",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 4xx\", function (){",
+									"    pm.response.to.be.badRequest;",
+									"});",
+									"",
+									"pm.test(\"Empty value response\", function () {",
+									"    pm.response.to.have.body(\"At least one of supported fields should be set and non-empty\\n\");",
+									"});",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "X-Requested-Id",
+								"value": "$(uuidgen)",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"content\": \"\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURLTasks}}/{{taskId}}",
+							"host": [
+								"{{baseURLTasks}}"
+							],
+							"path": [
+								"{{taskId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update a task - Invalid ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 4xx\", function (){",
+									"    pm.response.to.be.badRequest;",
+									"});",
+									"",
+									"pm.test(\"Invalid ID response\", function () {",
+									"    pm.response.to.have.body(\"Invalid ID\\n\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "X-Requested-Id",
+								"value": "$(uuidgen)",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"content\": \"test\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURLTasks}}/1",
+							"host": [
+								"{{baseURLTasks}}"
+							],
+							"path": [
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Close a task - Invalid ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 4xx\", function (){",
+									"    pm.response.to.be.badRequest;",
+									"});",
+									"",
+									"pm.test(\"Invalid ID response\", function () {",
+									"    pm.response.to.have.body(\"Invalid ID\\n\");",
+									"});",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "X-Requested-Id",
+								"value": "$(uuidgen)",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURLTasks}}/1/close",
+							"host": [
+								"{{baseURLTasks}}"
+							],
+							"path": [
+								"1",
+								"close"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Reopen a task - Invalid ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 4xx\", function (){",
+									"    pm.response.to.be.badRequest;",
+									"});",
+									"",
+									"pm.test(\"Invalid ID response\", function () {",
+									"    pm.response.to.have.body(\"Invalid ID\\n\");",
+									"});",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "X-Requested-Id",
+								"value": "$(uuidgen)",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURLTasks}}/1/reopen",
+							"host": [
+								"{{baseURLTasks}}"
+							],
+							"path": [
+								"1",
+								"reopen"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete a task - Invalid ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 4xx\", function (){",
+									"    pm.response.to.be.badRequest;",
+									"});",
+									"",
+									"pm.test(\"Invalid ID response\", function () {",
+									"    pm.response.to.have.body(\"Invalid ID\\n\");",
+									"});",
+									"",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "X-Requested-Id",
+								"value": "$(uuidgen)",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURLTasks}}/1",
+							"host": [
+								"{{baseURLTasks}}"
+							],
+							"path": [
+								"1"
 							]
 						}
 					},
